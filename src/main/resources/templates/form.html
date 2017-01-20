@@ -2,14 +2,69 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
     <head>
         <title>Sign up form</title>
+        <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
     </head>
     <body>
-
-        <h1>Sign up to the event using this form</h1>
+        <header th:replace="partials/header :: header">
+            <p>header with links etc</p>
+        </header>
+        
+        <h2>Sign up to the event using this form</h2>
 
         <form action="#" th:action="@{/form}" method="POST">
-            <p><label for="name">Name</label>: <input type="text" name="name" id="name"/></p>
-            <p><label for="address">Address</label>: <input type="text" name="address" id="address"/></p>
+            <table>
+                <tr>
+                    <td>
+                        Firstname:
+                    </td>
+                    <td>
+                        <input type="text" name="firstname" id="firstname"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Lastname:
+                    </td>
+                    <td>
+                        <input type="text" name="lastname" id="lastname"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Email:
+                    </td>
+                    <td>
+                        <input type="text" name="email" id="email"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Phone number:
+                    </td>
+                    <td>
+                        <input type="text" name="phone_number" id="phone_number"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Address:
+                    </td>
+                    <td>
+                        <input type="text" name="address" id="address"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        Choose a password to be able to login and edit your information
+                        after you have signed up:
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <input type="password" name="password" id="password"/>
+                    </td>
+                </tr>
+            </table>
             <p><input type="submit" value="Submit" /></p>
         </form>
 

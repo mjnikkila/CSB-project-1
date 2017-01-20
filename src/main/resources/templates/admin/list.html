@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>List attendees</title>
+        <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
+    </head>
+    <body>
+        <header th:replace="partials/header :: header">
+        </header>
+        
+        <h2>List of sign ups</h2>
+        
+        <table>
+            <tr style="background-color: gainsboro;">
+                <th>First name</th>
+                <th>Last name</th>
+                <th>Email</th>
+                <th>Functions</th>
+            </tr>
+            <tr th:each="signup : ${signups}">
+                <td th:utext="${signup.firstname}"></td>
+                <td th:utext="${signup.lastname}"></td>
+                <td th:utext="${signup.email}"></td>
+                <td>
+                    <a th:href="@{/admin/details?id={id}(id=${signup.id})}">More information</a> | 
+                    <a th:href="@{/admin/delete?id={id}(id=${signup.id})}">Delete</a>
+                </td>
+            </tr>
+        </table>
+    </body>
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Show sign up</title>
+        <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
+    </head>
+    <body>
+        <header th:replace="partials/header :: header">
+        </header>
+        <a onClick="javascript: history.back();">&lt; Back</a>
+        <h2>Sign up <span th:text="${signup.firstname}"></span> <span th:text="${signup.lastname}"></span></h2>
+                <form action="#" th:action="@{/admin/details?id={id}(id=${signup.id})}" method="POST">
+                    <input type="hidden" name="id" id="id" th:value="${signup.id}"/>
+                    <table>
+                    <tr>
+                        <td>
+                            First name:
+                        </td>
+                        <td>
+                            <input type="text" name="firstname" id="firstname" th:value="${signup.firstname}"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Last name:
+                        </td>
+                        <td>
+                            <input type="text" name="lastname" id="lastname" th:value="${signup.lastname}"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Email:
+                        </td>
+                        <td>
+                            <input type="text" name="email" id="email" th:value="${signup.email}"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Phone number:
+                        </td>
+                        <td>
+                            <input type="text" name="phone_number" id="phone_number" th:value="${signup.phone_number}"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Address:
+                        </td>
+                        <td>
+                            <input type="text" name="address" id="address" th:value="${signup.address}"/>
+                        </td>
+                    </tr>
+                </table>
+                <p><input type="submit" value="Submit" /></p>
+            </form>
+    </body>
+</html>

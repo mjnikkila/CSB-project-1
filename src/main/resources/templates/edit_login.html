@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Sign up form</title>
+        <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
+    </head>
+    <body>
+        <header th:replace="partials/header :: header">
+            <p>header with links etc</p>
+        </header>
+        
+        <h2>Login to your sign up</h2>
+        <form action="#" th:action="@{/edit}" method="POST">
+            <table>
+                <tr>
+                    <td>
+                        Email:
+                    </td>
+                    <td>
+                        <input type="text" name="email" id="email"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Password:
+                    </td>
+                    <td>
+                        <input type="text" name="password" id="password"/>
+                    </td>
+                </tr>
+            </table>
+            <input type="submit" value="Submit"/>
+        </form>
+    </body>
+</html>
