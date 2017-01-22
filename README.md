@@ -8,7 +8,7 @@ My task was to create a web application that has at least five different flaws f
 list (https://www.owasp.org/index.php/Top_10_2013-Top_10).
 
 I'm no expert in Java Spring framework, but decided to do this course project with it since there are
-always new and great things to learn. During the project I briefly learned the framework too.
+always new and great things to learn. During the project I learned the framework too.
 
 For this project I extended the provided [template](https://github.com/cybersecuritybase/cybersecuritybase-project)
 in a way that it provides additional features such as:
@@ -31,7 +31,7 @@ It is possible to iterate every sign up by fuzzing attribute called "id" in the 
 
 Steps to reproduce:
 
-1. Make two different sign ups. To make a sign up point your browser to http://localhost:8080/form.
+1. Make two different sign ups. To make a sign up, point your browser to http://localhost:8080/form.
     1. First sign up:
         1. First name: John
         2. Last name: Doe
@@ -55,9 +55,9 @@ Steps to reproduce:
 
 #### Fix
 
-To get this issue fixed; system should not keep id number of a user in a place that can be
+To get this issue fixed; system should not keep the id number of a user in a place that can be
 easily tampered. For instance storing the user id value in the session makes it possible for attacker not to tamper with
-data client side. Sessions are stored at server side so tampering this data needs access to server. In addition system
+data client side. Sessions are stored at server side so tampering this data needs access to server. In addition the system
 should check that currently "logged in" user has a permission to view and edit desired user details.
 
 ### Broken Authentication and Session Management
@@ -81,38 +81,38 @@ It is possible to brute force the admin panel login with tools such as Owasp ZAP
 
 #### Fix
 
-System should prevent login attempts for a n-amount of time if certain quantity of the login attempts has been
+System should prevent login attempts for a n-amount of time if certain quantity of the login attempts have been
 performed. Login attempts can be limited as per ip address or other unique client side identifier. Also implementing a CSRF
-protection for the login form makes it harder an attacker to automate such a process. In addition one may
+protection for the login form makes it harder an attacker to automate such process. In addition, one may
 implement a captcha support such as [reCAPTCHA](https://www.google.com/recaptcha/intro/index.html) to prevent bots.
 
 ### Cross-Site Scripting (XSS)
 
-When doing a sign up for a event it is possible to inject malicious javascript code in the form fields.
+When doing a sign up for an event it is possible to inject malicious javascript code in the form fields.
 
 1. Click Sign up
-1. Fill up fields as you like but in the "First name" field put the following malicious javascript:
+1. Fill up fields as you like but put the following malicious javascript in the "First name" field
    1. `<script>location.href = 'https://google.com';</script>`
-1. Login into admin using password “victory”
+1. Log in to admin using password “victory”
 1. Note that you will be redirected into google and admin panel is totally unusable
 
 As a side note; attacker could craft malicious page looking totally like “Event platform” admin panel,
-but instead it asks for your password again. This way an attacker could steal valuable user passwords.
+but instead it asks for your password again. This way the attacker could steal valuable user passwords.
 
 #### Fix
 
 All user input should be validated and sanitized before handling the values to make sure that only desired data gets
-stored into system. In this project data is persisted and read as is, which causes the platform being vulnerable
+stored into system. In this project, data is persisted and read as it is, which causes the platform being vulnerable
 to XSS attacks. As a minimum fix `th:text` should have been used instead of `th:utext` when presenting data to user.
 
 ### Cross-Site Request Forgery (CSRF)
 
-When investigating forms and links it seems that there are no CSRF protection at all in any manner. To be able to verify
+When investigating forms and links it seems there are no CSRF protection at all in any manner. To be able to verify
 this let’s do a very simple test case.
 
 1. Make sure that you have few test sign ups
-1. Click “Admin” and login with a password "victory"
-1. Notice that there is a possibility to delete a sign up record
+1. Click “Admin” and log in with a password "victory"
+1. Notice there is a possibility to delete a sign up record
 1. It seems to work in a way that it makes a GET request into certain endpoint called http://localhost:8080/admin/delete?id=1
 1. To abuse this let’s make a simple HTML-file with a image in it:
     1. `<img src="http://localhost:8080/admin/delete?id=1" />`
@@ -121,7 +121,7 @@ this let’s do a very simple test case.
 1. Open our test file within the new tab, you should see a broken image
 1. Note that you were able to delete a record
 
-Imagine that you as an event manager just got email with broken images. Next step you figure out is
+Imagine that you as an event manager got an email with broken images. Next thing you figure out is
 that all your event sign ups have been disappeared. What a disaster!
 
 #### Fix
@@ -136,14 +136,14 @@ It seems that system does not protect session cookie properly by setting HTTP-On
 possible for attacker to steal user session and fix it for himself. The system has a misconfiguration.
 
 1. Go to front page http://localhost:8080
-1. Open browsers developer tools, on chrome choose More tools -> Developer tools
+1. Open browser's developer tools, on chrome and choose More tools -> Developer tools
 1. Open application tab
-1. From the left menu choose Cookies -> http://localhost:8080
+1. Choose Cookies -> http://localhost:8080 from the left menu
 1. Note that session name is FOOSESSIONID (not to collide other systems you may have tested)
 1. See that HTTP-Only flag is not set
 1. Using XSS technique described above insert this javascript into "First name" field
     1. `<script>alert(document.cookie);</script>`
-1. Login to admin interface and see that your session id is exposed
+1. Log in to admin interface and see that your session id is exposed
 
 #### Fix
 
